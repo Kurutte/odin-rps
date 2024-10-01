@@ -28,33 +28,55 @@ function getHumanChoice() {
 }
 
 function playGame() {
-    let humanScore = 0, computerScore = 0;
+    let humanScore = 0, computerScore = 0, tiedCount = 0;
 
-    function playRound(computerChoice, humanChoice) {
+    function playRound(evt) {
+
+        let computerChoice = getComputerChoice();
+        let humanChoice = evt.currentTarget.id;
 
         if((humanChoice === 'rock' && computerChoice === 'scissors') ||
            (humanChoice === 'paper' && computerChoice === 'rock') ||
            (humanChoice === 'scissors' && computerChoice === 'paper'))  {
     
-            console.log("You won! " + humanChoice + " beats " + computerChoice);
+            resultsScreen.textContent = "Aww, you won! " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) + " beats " + computerChoice + ".";
             humanScore += 1;
+            if( humanScore === 5) {
+                endGame('Player');
+            }
         } else if((humanChoice === 'rock' && computerChoice === 'paper') || 
                   (humanChoice === 'paper' && computerChoice === 'scissors') || 
                   (humanChoice === 'scissors' && computerChoice === 'rock') )  {
     
-            console.log("You lost! " + computerChoice + " beats " + humanChoice);
+            resultsScreen.textContent = "Haha, you lost! " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + " beats " + humanChoice + ".";
             computerScore += 1;
+            if(computerScore === 5) {
+                endGame('I, the Computer,');
+            }
         } else {
-            console.log("Tied! " + computerChoice + " is the same as " + humanChoice);
+            resultsScreen.textContent = "Argh, tied! " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + " is the same as " + humanChoice + ".";
+            tiedCount += 1;
         }
+
+        resultsScreen.textContent += " Player: " + humanScore + ", Computer: " + computerScore + ", Ties: " + tiedCount;
     }
 
-    for(index = 0; index < 5; index++)
-        {
-            playRound(getComputerChoice(), getHumanChoice());
-        }
+    function endGame(winner) {
+        resultsScreen.textContent = winner + " WON! GGS, reload to try again!";
+        container.removeChild(buttons);
+    }
 
-    console.log("Human Score: " + humanScore + ", Computer Score: " + computerScore )
+    const rockBtn = document.querySelector("#rock");
+    rockBtn.addEventListener('click', playRound);
+    const paperBtn = document.querySelector("#paper");
+    paperBtn.addEventListener('click', playRound);
+    const scissorsBtn = document.querySelector("#scissors");
+    scissorsBtn.addEventListener('click', playRound);
+
+    const container = document.querySelector(".container");
+    const buttons = document.querySelector(".buttons");
+    const resultsScreen = document.querySelector(".results");
+    resultsScreen.textContent = " Player: " + humanScore + ", Computer: " + computerScore + ", Ties: " + tiedCount;
 }
 
 playGame();

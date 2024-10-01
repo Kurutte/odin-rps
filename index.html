@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Console RPS</title>
+    <title>Computer RPS</title>
+    <style>
+        body {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        button {
+            margin: 5px 20px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Play the game with the console!</h1>
+    <h1>ROCK PAPER SCISSORS!</h1>
+    <h3>Can you beat me, the incredibly smart computer?</h3>
+    <div class="container">
+        <div class="buttons">
+            <button id="rock"><img src="./images/rock.jpg" alt="A sturdy Rock" height="160px" width="160px">ROCK</button>
+            <button id="paper"><img src="./images/paper.jpeg" alt="A reliable piece of Paper" height="160px" width="160px">PAPER</button>
+            <button id="scissors"><img src="./images/scissors.png" alt="A pair of sharp Scissors" height="160px" width="160px">SCISSORS</button>
+        </div>
+
+        <p class="results"></p>
+    </div>
     <script src="rps.js"></script>
 </body>
 </html>
